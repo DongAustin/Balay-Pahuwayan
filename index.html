@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Balay Pahuwayan - Hotel Management System</title>
     
+    <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-
     <script>
         tailwind.config = {
             theme: {
@@ -18,10 +20,10 @@
                         serif: ['Playfair Display', 'serif'],
                     },
                     colors: {
-                        'balay-dark': '#1A2F25', /* Deep tropical green */
-                        'balay-light': '#F9F6F0', /* Warm off-white/beige */
-                        'balay-accent': '#8B5A2B', /* Nipa/Bamboo brown */
-                        'balay-secondary': '#2C4C3B' /* Secondary green */
+                        'balay-dark': '#2C3E35',   /* Forest green / Wood undertones */
+                        'balay-light': '#F4F1EA',  /* Warm earth / Beige */
+                        'balay-accent': '#A67C52', /* Bamboo / Rattan brown */
+                        'balay-secondary': '#4A5D23' /* Nipa leaf green */
                     }
                 }
             }
@@ -29,20 +31,18 @@
     </script>
     <style>
         body {
-            background-color: #F9F6F0;
-            color: #1A2F25;
+            background-color: #F4F1EA;
+            color: #2C3E35;
             scroll-behavior: smooth;
         }
         .hero-bg {
-            background-image: linear-gradient(rgba(26, 47, 37, 0.6), rgba(26, 47, 37, 0.6)), url('https://images.unsplash.com/photo-1588854337221-4cfb92d60bc0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-image: linear-gradient(rgba(44, 62, 53, 0.7), rgba(44, 62, 53, 0.7)), url('https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
         }
-        /* Custom scrollbar */
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #F9F6F0; }
-        ::-webkit-scrollbar-thumb { background: #8B5A2B; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #6b4421; }
+        ::-webkit-scrollbar-track { background: #F4F1EA; }
+        ::-webkit-scrollbar-thumb { background: #A67C52; border-radius: 4px; }
         
         .toast-enter { transform: translateY(100%); opacity: 0; }
         .toast-enter-active { transform: translateY(0); opacity: 1; transition: all 0.3s ease-out; }
@@ -52,39 +52,30 @@
 </head>
 <body class="font-sans antialiased flex flex-col min-h-screen">
 
-    <nav class="fixed w-full z-50 bg-balay-light/95 backdrop-blur-sm shadow-sm transition-all duration-300">
+    <nav class="fixed w-full z-50 bg-[#F4F1EA]/95 backdrop-blur-md shadow-sm border-b border-[#A67C52]/20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20 items-center">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer" onclick="showSection('home')">
-                    <i class="fa-solid fa-house-chimney-window text-2xl text-balay-accent"></i>
-                    <span class="font-serif font-bold text-2xl tracking-wide text-balay-dark">BALAY PAHUWAYAN</span>
+                    <i class="fa-solid fa-leaf text-2xl text-balay-accent"></i>
+                    <span class="font-serif font-bold text-2xl tracking-wide text-balay-dark uppercase">Balay Pahuwayan</span>
                 </div>
                 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex space-x-8 items-center">
                     <a href="#" onclick="showSection('home')" class="text-gray-700 hover:text-balay-accent transition-colors font-medium">Home</a>
-                    <a href="#rooms-section" onclick="showSection('home')" class="text-gray-700 hover:text-balay-accent transition-colors font-medium">Our Rooms</a>
-                    <a href="#" class="text-gray-700 hover:text-balay-accent transition-colors font-medium">Dining</a>
-                    <a href="#" class="text-gray-700 hover:text-balay-accent transition-colors font-medium">Gallery</a>
+                    <a href="#rooms" onclick="showSection('home')" class="text-gray-700 hover:text-balay-accent transition-colors font-medium">Suites</a>
                     
                     <!-- Auth specific buttons -->
                     <div id="nav-unauth" class="flex gap-4">
                         <button onclick="openAuthModal('login')" class="text-balay-dark font-medium hover:text-balay-accent transition-colors">Log In</button>
-                        <button onclick="openAuthModal('register')" class="bg-balay-dark text-white px-5 py-2 rounded-md hover:bg-balay-secondary transition-colors shadow-md">Register</button>
+                        <button onclick="openAuthModal('register')" class="bg-balay-dark text-white px-5 py-2 rounded hover:bg-balay-secondary transition-colors shadow-sm">Register</button>
                     </div>
                     <div id="nav-auth" class="hidden flex gap-4 items-center">
-                        <button onclick="showSection('dashboard')" class="text-balay-accent font-semibold hover:text-balay-dark transition-colors"><i class="fa-solid fa-clipboard-list mr-1"></i> Dashboard</button>
+                        <button onclick="showSection('dashboard')" class="text-balay-accent font-semibold hover:text-balay-dark transition-colors"><i class="fa-solid fa-table-list mr-1"></i> My Dashboard</button>
                         <span id="nav-user-email" class="text-sm text-gray-500 font-medium"></span>
-                        <button onclick="handleLogout()" class="text-red-600 font-medium hover:text-red-800 transition-colors"><i class="fa-solid fa-right-from-bracket"></i></button>
+                        <button onclick="handleLogout()" class="text-red-600/80 font-medium hover:text-red-800 transition-colors" title="Logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
                     </div>
-                </div>
-                
-                <!-- Mobile menu button -->
-                <div class="md:hidden flex items-center">
-                    <button class="text-balay-dark hover:text-balay-accent focus:outline-none">
-                        <i class="fa-solid fa-bars text-2xl"></i>
-                    </button>
                 </div>
             </div>
         </div>
@@ -93,111 +84,63 @@
     <main id="view-home" class="flex-grow">
         <!-- Hero Section -->
         <div class="relative h-[85vh] hero-bg flex flex-col justify-center items-center text-center px-4">
-            <h1 class="font-serif text-5xl md:text-7xl text-white font-bold mb-4 drop-shadow-lg tracking-wide uppercase">
-                Unwind in Paradise:<br>Balay Pahuwayan
+            <p class="text-balay-accent font-semibold tracking-[0.3em] uppercase mb-4 text-sm md:text-base drop-shadow-md">Welcome to your sanctuary</p>
+            <h1 class="font-serif text-5xl md:text-7xl text-white font-bold mb-6 drop-shadow-lg tracking-wide">
+                Experience Authentic <br>Filipino Tranquility
             </h1>
-            <p class="text-xl md:text-2xl text-gray-200 mb-8 max-w-2xl font-light drop-shadow-md">
-                Experience bespoke minimalist luxury and authentic Filipino hospitality in our modern traditional homes.
+            <p class="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl font-light drop-shadow-md">
+                Minimalist spaces inspired by the traditional Bahay Kubo, designed for ultimate rest and relaxation.
             </p>
+            <button onclick="document.getElementById('rooms').scrollIntoView()" class="bg-balay-accent hover:bg-[#8B5A2B] text-white px-8 py-3 rounded text-lg font-medium shadow-lg transition-colors duration-300">
+                View Our Rooms
+            </button>
         </div>
 
-        <!-- Booking Search Bar (Overlapping Hero) -->
-        <div class="relative -mt-16 z-20 max-w-5xl mx-auto px-4">
-            <div class="bg-balay-secondary rounded-xl shadow-2xl p-4 md:p-6 flex flex-col md:flex-row gap-4 justify-between items-end border-b-4 border-balay-accent">
-                <div class="w-full md:w-1/4">
-                    <label class="block text-white text-xs font-bold mb-2 uppercase tracking-wider"><i class="fa-regular fa-calendar mr-2"></i>Check-in</label>
-                    <input type="date" id="search-checkin" class="w-full px-4 py-3 rounded-lg text-gray-800 bg-white focus:outline-none focus:ring-2 focus:ring-balay-accent">
-                </div>
-                <div class="w-full md:w-1/4">
-                    <label class="block text-white text-xs font-bold mb-2 uppercase tracking-wider"><i class="fa-regular fa-calendar mr-2"></i>Check-out</label>
-                    <input type="date" id="search-checkout" class="w-full px-4 py-3 rounded-lg text-gray-800 bg-white focus:outline-none focus:ring-2 focus:ring-balay-accent">
-                </div>
-                <div class="w-full md:w-1/4">
-                    <label class="block text-white text-xs font-bold mb-2 uppercase tracking-wider"><i class="fa-solid fa-user-group mr-2"></i>Guests</label>
-                    <select id="search-guests" class="w-full px-4 py-3 rounded-lg text-gray-800 bg-white focus:outline-none focus:ring-2 focus:ring-balay-accent appearance-none">
-                        <option value="1">1 Guest</option>
-                        <option value="2" selected>2 Guests</option>
-                        <option value="3">3 Guests</option>
-                        <option value="4">4 Guests</option>
-                        <option value="5+">5+ Guests</option>
-                    </select>
-                </div>
-                <div class="w-full md:w-auto">
-                    <button onclick="scrollToRooms()" class="w-full md:w-auto bg-balay-accent hover:bg-[#6b4421] text-white font-bold py-3 px-8 rounded-lg shadow-lg transition duration-300 uppercase tracking-wide">
-                        Search Rooms
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <section id="rooms-section" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Rooms Section -->
+        <section id="rooms" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="font-serif text-4xl text-balay-dark font-bold mb-4">Our Signature Rooms</h2>
-                <div class="w-24 h-1 bg-balay-accent mx-auto mb-6"></div>
-                <p class="text-gray-600 max-w-2xl mx-auto text-lg">Embrace the simplicity and comfort of our traditional-inspired accommodations, designed for your utmost relaxation.</p>
+                <h2 class="font-serif text-4xl text-balay-dark font-bold mb-4">Our Accommodations</h2>
+                <div class="w-16 h-1 bg-balay-accent mx-auto mb-6"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto text-lg">Harmonizing nature with modern comfort.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
                 <!-- Room 1 -->
-                <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100 group">
-                    <div class="h-64 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Kubo Standard" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    </div>
+                <div class="bg-white rounded shadow-sm hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100">
+                    <img src="https://images.unsplash.com/photo-1522798514-97ceb8c4f1c8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Kubo Standard" class="w-full h-60 object-cover">
                     <div class="p-6">
-                        <div class="flex justify-between items-start mb-4">
-                            <h3 class="font-serif text-2xl font-bold text-balay-dark">Kubo Standard</h3>
-                            <span class="bg-stone-100 text-balay-accent text-xs font-bold px-2 py-1 rounded">2 Guests</span>
-                        </div>
-                        <p class="text-gray-600 text-sm mb-4 line-clamp-2">A cozy minimalist room inspired by the traditional bahay kubo, featuring woven bamboo accents and modern amenities.</p>
-                        <div class="flex justify-between items-center mt-6">
-                            <div>
-                                <span class="text-xs text-gray-500 uppercase tracking-wider">Starts at</span><br>
-                                <span class="text-xl font-bold text-balay-dark">₱1,500</span><span class="text-sm text-gray-500"> /night</span>
-                            </div>
-                            <button onclick="initiateBooking('Kubo Standard', 1500)" class="bg-balay-dark text-white px-5 py-2 rounded hover:bg-balay-secondary transition-colors text-sm font-medium">Book Now</button>
+                        <h3 class="font-serif text-2xl font-bold text-balay-dark mb-2">Kubo Standard</h3>
+                        <p class="text-gray-500 text-sm mb-4">A cozy, minimalist room with woven bamboo accents and essential modern amenities.</p>
+                        <div class="flex justify-between items-center mt-6 pt-4 border-t border-gray-100">
+                            <div class="font-bold text-xl text-balay-dark">₱1,500 <span class="text-sm text-gray-400 font-normal">/ night</span></div>
+                            <button onclick="initiateBooking('Kubo Standard', 1500)" class="text-balay-accent font-semibold hover:text-balay-dark transition-colors">Book <i class="fa-solid fa-arrow-right ml-1"></i></button>
                         </div>
                     </div>
                 </div>
 
                 <!-- Room 2 -->
-                <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100 group relative">
-                    <div class="absolute top-4 right-4 bg-balay-accent text-white text-xs font-bold px-3 py-1 rounded-full z-10 shadow">Popular</div>
-                    <div class="h-64 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1522798514-97ceb8c4f1c8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Kubo Deluxe" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    </div>
+                <div class="bg-white rounded shadow-sm hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100 relative">
+                    <div class="absolute top-4 right-4 bg-balay-dark text-white text-xs font-bold px-3 py-1 rounded shadow">Popular</div>
+                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Kubo Deluxe" class="w-full h-60 object-cover">
                     <div class="p-6">
-                        <div class="flex justify-between items-start mb-4">
-                            <h3 class="font-serif text-2xl font-bold text-balay-dark">Kubo Deluxe</h3>
-                            <span class="bg-stone-100 text-balay-accent text-xs font-bold px-2 py-1 rounded">3 Guests</span>
-                        </div>
-                        <p class="text-gray-600 text-sm mb-4 line-clamp-2">Spacious upgraded suite with a private veranda, premium linens, and a stunning view of the tropical gardens.</p>
-                        <div class="flex justify-between items-center mt-6">
-                            <div>
-                                <span class="text-xs text-gray-500 uppercase tracking-wider">Starts at</span><br>
-                                <span class="text-xl font-bold text-balay-dark">₱2,200</span><span class="text-sm text-gray-500"> /night</span>
-                            </div>
-                            <button onclick="initiateBooking('Kubo Deluxe', 2200)" class="bg-balay-dark text-white px-5 py-2 rounded hover:bg-balay-secondary transition-colors text-sm font-medium">Book Now</button>
+                        <h3 class="font-serif text-2xl font-bold text-balay-dark mb-2">Kubo Deluxe</h3>
+                        <p class="text-gray-500 text-sm mb-4">Spacious suite with a private veranda, premium linens, and a stunning garden view.</p>
+                        <div class="flex justify-between items-center mt-6 pt-4 border-t border-gray-100">
+                            <div class="font-bold text-xl text-balay-dark">₱2,500 <span class="text-sm text-gray-400 font-normal">/ night</span></div>
+                            <button onclick="initiateBooking('Kubo Deluxe', 2500)" class="text-balay-accent font-semibold hover:text-balay-dark transition-colors">Book <i class="fa-solid fa-arrow-right ml-1"></i></button>
                         </div>
                     </div>
                 </div>
 
                 <!-- Room 3 -->
-                <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100 group">
-                    <div class="h-64 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Family Nipa Villa" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    </div>
+                <div class="bg-white rounded shadow-sm hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100">
+                    <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Family Nipa Villa" class="w-full h-60 object-cover">
                     <div class="p-6">
-                        <div class="flex justify-between items-start mb-4">
-                            <h3 class="font-serif text-2xl font-bold text-balay-dark">Family Nipa Villa</h3>
-                            <span class="bg-stone-100 text-balay-accent text-xs font-bold px-2 py-1 rounded">5+ Guests</span>
-                        </div>
-                        <p class="text-gray-600 text-sm mb-4 line-clamp-2">The ultimate family getaway. A large multi-room traditional house featuring a communal dining area and private plunge pool.</p>
-                        <div class="flex justify-between items-center mt-6">
-                            <div>
-                                <span class="text-xs text-gray-500 uppercase tracking-wider">Starts at</span><br>
-                                <span class="text-xl font-bold text-balay-dark">₱3,000</span><span class="text-sm text-gray-500"> /night</span>
-                            </div>
-                            <button onclick="initiateBooking('Family Nipa Villa', 3000)" class="bg-balay-dark text-white px-5 py-2 rounded hover:bg-balay-secondary transition-colors text-sm font-medium">Book Now</button>
+                        <h3 class="font-serif text-2xl font-bold text-balay-dark mb-2">Family Nipa Villa</h3>
+                        <p class="text-gray-500 text-sm mb-4">A large multi-room traditional house featuring a communal dining area.</p>
+                        <div class="flex justify-between items-center mt-6 pt-4 border-t border-gray-100">
+                            <div class="font-bold text-xl text-balay-dark">₱4,000 <span class="text-sm text-gray-400 font-normal">/ night</span></div>
+                            <button onclick="initiateBooking('Family Nipa Villa', 4000)" class="text-balay-accent font-semibold hover:text-balay-dark transition-colors">Book <i class="fa-solid fa-arrow-right ml-1"></i></button>
                         </div>
                     </div>
                 </div>
@@ -205,108 +148,56 @@
         </section>
     </main>
 
-    <main id="view-dashboard" class="hidden flex-grow pt-24 pb-12 bg-gray-50">
+    <main id="view-dashboard" class="hidden flex-grow pt-28 pb-16 bg-[#F4F1EA]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+            
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4 bg-white p-6 rounded-lg shadow-sm border border-gray-100">
                 <div>
-                    <h2 class="font-serif text-3xl font-bold text-balay-dark" id="dashboard-title">My Bookings</h2>
-                    <p class="text-gray-600" id="dashboard-subtitle">Manage your reservations and stays.</p>
+                    <h2 class="font-serif text-3xl font-bold text-balay-dark" id="dash-title">Reservation Dashboard</h2>
+                    <p class="text-gray-500 mt-1">Manage your hotel bookings below.</p>
                 </div>
-                <button onclick="openBookingModal()" class="bg-balay-accent hover:bg-[#6b4421] text-white px-6 py-2 rounded shadow transition-colors flex items-center gap-2">
-                    <i class="fa-solid fa-plus"></i> New Booking
+                <button onclick="openBookingModal()" class="bg-balay-dark hover:bg-balay-secondary text-white px-6 py-3 rounded shadow transition-colors flex items-center gap-2">
+                    <i class="fa-solid fa-plus"></i> Add New Booking
                 </button>
             </div>
 
-            <!-- Dashboard Stats (Admin Only) -->
-            <div id="admin-stats" class="hidden grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 flex items-center gap-4">
-                    <div class="bg-blue-100 p-4 rounded-full text-blue-600"><i class="fa-solid fa-calendar-check text-xl"></i></div>
-                    <div><p class="text-sm text-gray-500 font-medium">Total Bookings</p><p class="text-2xl font-bold text-gray-800" id="stat-total">0</p></div>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 flex items-center gap-4">
-                    <div class="bg-green-100 p-4 rounded-full text-green-600"><i class="fa-solid fa-peso-sign text-xl"></i></div>
-                    <div><p class="text-sm text-gray-500 font-medium">Estimated Revenue</p><p class="text-2xl font-bold text-gray-800" id="stat-revenue">₱0</p></div>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 flex items-center gap-4">
-                    <div class="bg-orange-100 p-4 rounded-full text-orange-600"><i class="fa-solid fa-users text-xl"></i></div>
-                    <div><p class="text-sm text-gray-500 font-medium">Active Guests</p><p class="text-2xl font-bold text-gray-800" id="stat-guests">0</p></div>
-                </div>
-            </div>
-
-            <!-- Bookings Data Table -->
-            <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
+            <!-- Data Table (READ part of CRUD) -->
+            <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-200">
                 <div class="overflow-x-auto">
-                    <table class="w-full whitespace-nowrap text-left">
+                    <table class="w-full text-left border-collapse">
                         <thead>
                             <tr class="bg-gray-50 text-gray-600 text-sm uppercase tracking-wider border-b border-gray-200">
-                                <th class="px-6 py-4 font-semibold">Guest / Email</th>
-                                <th class="px-6 py-4 font-semibold">Room Type</th>
-                                <th class="px-6 py-4 font-semibold">Dates</th>
-                                <th class="px-6 py-4 font-semibold">Guests</th>
+                                <th class="px-6 py-4 font-semibold">Guest Name</th>
+                                <th class="px-6 py-4 font-semibold">Room Details</th>
+                                <th class="px-6 py-4 font-semibold">Check In - Out</th>
                                 <th class="px-6 py-4 font-semibold">Total Price</th>
-                                <th class="px-6 py-4 font-semibold">Status</th>
                                 <th class="px-6 py-4 font-semibold text-right">Actions</th>
                             </tr>
                         </thead>
                         <tbody id="bookings-table-body" class="divide-y divide-gray-100">
-                            <!-- Populated by JS -->
+                            <!-- Populated dynamically -->
                             <tr>
-                                <td colspan="7" class="px-6 py-8 text-center text-gray-500">
-                                    <i class="fa-solid fa-spinner fa-spin mr-2"></i> Loading reservations...
+                                <td colspan="5" class="px-6 py-10 text-center text-gray-500">
+                                    <i class="fa-solid fa-spinner fa-spin mr-2"></i> Loading data from database...
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
+
         </div>
     </main>
 
-    <footer class="bg-balay-dark text-gray-300 py-12 border-t-4 border-balay-accent mt-auto">
-        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-                <h3 class="font-serif text-2xl font-bold text-white mb-4">Balay Pahuwayan</h3>
-                <p class="text-sm text-gray-400 mb-4 max-w-sm">A serene escape blending minimalist design with traditional Filipino warmth. Your home away from home.</p>
-                <div class="flex space-x-4">
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fa-brands fa-facebook text-xl"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fa-brands fa-instagram text-xl"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fa-brands fa-twitter text-xl"></i></a>
-                </div>
-            </div>
-            <div>
-                <h4 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Quick Links</h4>
-                <ul class="space-y-2 text-sm">
-                    <li><a href="#" class="hover:text-balay-accent transition-colors">Our Rooms</a></li>
-                    <li><a href="#" class="hover:text-balay-accent transition-colors">Dining Experience</a></li>
-                    <li><a href="#" class="hover:text-balay-accent transition-colors">Terms & Conditions</a></li>
-                    <li><a href="#" class="hover:text-balay-accent transition-colors">Privacy Policy</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="text-white font-semibold mb-4 uppercase tracking-wider text-sm">Contact Us</h4>
-                <ul class="space-y-3 text-sm text-gray-400">
-                    <li><i class="fa-solid fa-location-dot w-6 text-balay-accent"></i> 123 Tropical Way, Siargao Island, PH</li>
-                    <li><i class="fa-solid fa-phone w-6 text-balay-accent"></i> +63 912 345 6789</li>
-                    <li><i class="fa-solid fa-envelope w-6 text-balay-accent"></i> info@balaypahuwayan.com</li>
-                </ul>
-            </div>
-        </div>
-        <div class="max-w-7xl mx-auto px-4 mt-8 pt-8 border-t border-gray-700 text-center text-sm text-gray-500">
-            &copy; 2026 Balay Pahuwayan Hotel Management System. School Project.
-        </div>
-    </footer>
-
-    
-    <!-- Auth Modal -->
-    <div id="modal-auth" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-[100] flex justify-center items-center opacity-0 transition-opacity duration-300">
-        <div class="bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden transform scale-95 transition-transform duration-300" id="auth-modal-content">
-            <div class="flex">
+    <!-- Authentication Modal -->
+    <div id="modal-auth" class="fixed inset-0 bg-balay-dark/80 backdrop-blur-sm hidden z-[100] flex justify-center items-center opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-md overflow-hidden transform scale-95 transition-transform duration-300" id="auth-modal-content">
+            <div class="flex border-b border-gray-200">
                 <button id="tab-login" onclick="switchAuthTab('login')" class="flex-1 py-4 text-center font-semibold bg-white text-balay-dark border-b-2 border-balay-accent">Login</button>
-                <button id="tab-register" onclick="switchAuthTab('register')" class="flex-1 py-4 text-center font-semibold bg-gray-100 text-gray-500 border-b-2 border-transparent">Register</button>
+                <button id="tab-register" onclick="switchAuthTab('register')" class="flex-1 py-4 text-center font-semibold bg-gray-50 text-gray-400 border-b-2 border-transparent">Register</button>
             </div>
             <div class="p-8">
-                <h3 class="text-2xl font-serif font-bold text-gray-800 mb-2" id="auth-title">Welcome Back</h3>
-                <p class="text-sm text-gray-500 mb-6" id="auth-subtitle">Sign in to manage your bookings.</p>
+                <h3 class="text-2xl font-serif font-bold text-gray-800 mb-6" id="auth-title">Welcome Back</h3>
                 
                 <form id="auth-form" onsubmit="submitAuth(event)">
                     <div id="name-field" class="hidden mb-4">
@@ -315,149 +206,146 @@
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2">Email Address</label>
-                        <input type="email" id="auth-email" required class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-balay-accent focus:ring-1 focus:ring-balay-accent" placeholder="admin@balay.com for admin access">
+                        <input type="email" id="auth-email" required class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-balay-accent focus:ring-1 focus:ring-balay-accent">
                     </div>
                     <div class="mb-6">
                         <label class="block text-gray-700 text-sm font-bold mb-2">Password</label>
                         <input type="password" id="auth-password" required minlength="6" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-balay-accent focus:ring-1 focus:ring-balay-accent">
                     </div>
-                    <button type="submit" id="auth-submit-btn" class="w-full bg-balay-dark hover:bg-balay-secondary text-white font-bold py-3 px-4 rounded transition duration-200">
+                    <button type="submit" id="auth-submit-btn" class="w-full bg-balay-dark hover:bg-balay-secondary text-white font-bold py-3 px-4 rounded transition duration-200 shadow">
                         Log In
                     </button>
                 </form>
-                <button onclick="closeModal('modal-auth')" class="mt-4 w-full text-center text-sm text-gray-500 hover:text-gray-800">Cancel</button>
+                <button onclick="closeModal('modal-auth')" class="mt-6 w-full text-center text-sm text-gray-500 hover:text-balay-dark transition-colors">Cancel</button>
             </div>
         </div>
     </div>
 
-    <!-- Booking Modal (Create/Update) -->
-    <div id="modal-booking" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-[100] flex justify-center items-center opacity-0 transition-opacity duration-300">
-        <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg p-6 max-h-[90vh] overflow-y-auto transform scale-95 transition-transform duration-300" id="booking-modal-content">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-serif font-bold text-gray-800" id="booking-modal-title">New Reservation</h3>
-                <button onclick="closeModal('modal-booking')" class="text-gray-400 hover:text-gray-800"><i class="fa-solid fa-xmark text-xl"></i></button>
+    <!-- Booking Form Modal (CREATE / UPDATE) -->
+    <div id="modal-booking" class="fixed inset-0 bg-balay-dark/80 backdrop-blur-sm hidden z-[100] flex justify-center items-center opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-lg p-8 max-h-[90vh] overflow-y-auto transform scale-95 transition-transform duration-300" id="booking-modal-content">
+            <div class="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
+                <h3 class="text-2xl font-serif font-bold text-gray-800" id="booking-modal-title">New Booking</h3>
+                <button onclick="closeModal('modal-booking')" class="text-gray-400 hover:text-gray-800 transition-colors"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
             
-            <form id="booking-form" onsubmit="submitBooking(event)">
+            <form id="booking-form" onsubmit="saveBookingForm(event)">
                 <input type="hidden" id="booking-id">
                 
                 <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2">Guest Name</label>
-                    <input type="text" id="booking-name" required class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-balay-accent">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Guest Full Name</label>
+                    <input type="text" id="b-name" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-balay-accent focus:ring-1 focus:ring-balay-accent">
                 </div>
                 
                 <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2">Room Type</label>
-                    <select id="booking-room" required onchange="calculatePrice()" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-balay-accent">
-                        <option value="Kubo Standard" data-price="1500">Kubo Standard (₱1,500/night)</option>
-                        <option value="Kubo Deluxe" data-price="2200">Kubo Deluxe (₱2,200/night)</option>
-                        <option value="Family Nipa Villa" data-price="3000">Family Nipa Villa (₱3,000/night)</option>
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Room Selection</label>
+                    <select id="b-room" required onchange="calcTotal()" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-balay-accent focus:ring-1 focus:ring-balay-accent bg-white">
+                        <option value="Kubo Standard" data-price="1500">Kubo Standard - ₱1,500/night</option>
+                        <option value="Kubo Deluxe" data-price="2500">Kubo Deluxe - ₱2,500/night</option>
+                        <option value="Family Nipa Villa" data-price="4000">Family Nipa Villa - ₱4,000/night</option>
                     </select>
-                </div>
-
-                <div class="grid grid-cols-2 gap-4 mb-4">
-                    <div>
-                        <label class="block text-gray-700 text-sm font-bold mb-2">Check-In Date</label>
-                        <input type="date" id="booking-checkin" required onchange="calculatePrice()" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-balay-accent">
-                    </div>
-                    <div>
-                        <label class="block text-gray-700 text-sm font-bold mb-2">Check-Out Date</label>
-                        <input type="date" id="booking-checkout" required onchange="calculatePrice()" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-balay-accent">
-                    </div>
                 </div>
 
                 <div class="grid grid-cols-2 gap-4 mb-6">
                     <div>
-                        <label class="block text-gray-700 text-sm font-bold mb-2">Number of Guests</label>
-                        <input type="number" id="booking-guests" min="1" max="10" required class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-balay-accent">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Check-In</label>
+                        <input type="date" id="b-in" required onchange="calcTotal()" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-balay-accent">
                     </div>
                     <div>
-                        <label class="block text-gray-700 text-sm font-bold mb-2">Total Price</label>
-                        <input type="text" id="booking-total-price" readonly class="w-full px-3 py-2 border border-gray-200 bg-gray-50 rounded text-gray-700 font-bold">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Check-Out</label>
+                        <input type="date" id="b-out" required onchange="calcTotal()" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-balay-accent">
                     </div>
                 </div>
-                
-                <div id="admin-status-control" class="mb-6 hidden border-t pt-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2">Booking Status (Admin Only)</label>
-                    <select id="booking-status" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-balay-accent">
-                        <option value="Pending">Pending</option>
-                        <option value="Confirmed">Confirmed</option>
-                        <option value="Checked In">Checked In</option>
-                        <option value="Checked Out">Checked Out</option>
-                        <option value="Cancelled">Cancelled</option>
-                    </select>
+
+                <div class="mb-6 p-4 bg-[#F4F1EA] rounded border border-[#A67C52]/30 flex justify-between items-center">
+                    <span class="text-gray-700 font-bold">Total Price (PHP):</span>
+                    <span class="text-2xl font-bold text-balay-dark" id="display-total">₱0</span>
+                    <input type="hidden" id="b-total" value="0">
                 </div>
 
-                <div class="flex justify-end gap-3 border-t pt-4">
-                    <button type="button" onclick="closeModal('modal-booking')" class="px-4 py-2 text-gray-600 font-medium hover:bg-gray-100 rounded">Cancel</button>
-                    <button type="submit" class="bg-balay-accent hover:bg-[#6b4421] text-white font-bold py-2 px-6 rounded shadow transition-colors">Save Booking</button>
+                <div class="flex justify-end gap-3 pt-2">
+                    <button type="button" onclick="closeModal('modal-booking')" class="px-5 py-2.5 text-gray-600 font-medium hover:bg-gray-100 rounded transition-colors">Cancel</button>
+                    <button type="submit" id="btn-save-booking" class="bg-balay-accent hover:bg-[#8B5A2B] text-white font-bold py-2.5 px-6 rounded shadow transition-colors flex items-center gap-2">
+                        <i class="fa-solid fa-check"></i> Save Booking
+                    </button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Toast Notification Container -->
-    <div id="toast-container" class="fixed bottom-5 right-5 z-[200] flex flex-col gap-2"></div>
+    <!-- Custom Confirm Deletion Modal (Since alert/confirm is strictly prohibited) -->
+    <div id="modal-delete" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-[200] flex justify-center items-center opacity-0 transition-opacity duration-200">
+        <div class="bg-white p-6 rounded-lg shadow-xl max-w-sm w-full mx-4 transform scale-95 transition-transform duration-200" id="delete-modal-content">
+            <h4 class="text-xl font-bold mb-3 text-gray-800 text-center"><i class="fa-solid fa-triangle-exclamation text-red-500 mr-2"></i>Delete Booking?</h4>
+            <p class="text-gray-600 mb-6 text-center text-sm">Are you sure you want to delete this reservation? This action cannot be undone.</p>
+            <div class="flex justify-center gap-3">
+                <button onclick="closeDeleteModal()" class="px-5 py-2 text-gray-600 bg-gray-100 hover:bg-gray-200 rounded font-medium transition-colors">Cancel</button>
+                <button id="confirm-delete-btn" class="px-5 py-2 text-white bg-red-600 hover:bg-red-700 rounded font-medium shadow transition-colors">Yes, Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-[300] flex flex-col gap-2"></div>
 
     <script type="module">
+        // Import Firebase v11.6.1 SDK (Compliant with both prompt & artifact system)
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInWithCustomToken, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Fallback context values if not provided by artifact env
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'balay-pahuwayan-demo';
-        const rawConfig = typeof __firebase_config !== 'undefined' ? __firebase_config : '{}';
-        
-        // Demo fallback config if running outside injected env (to prevent crashes in pure local viewing)
-        let firebaseConfig;
-        try {
-            firebaseConfig = JSON.parse(rawConfig);
-            if(Object.keys(firebaseConfig).length === 0) throw new Error("Empty config");
-        } catch (e) {
-            console.warn("Using placeholder Firebase config. DB will not connect properly without actual credentials.");
-            firebaseConfig = { apiKey: "demo", authDomain: "demo", projectId: "demo" };
-        }
+        // Your Exact Config to solve the auth/api-key-not-valid error
+        const firebaseConfig = {
+            apiKey: "AIzaSyBwK96ZVQ4X0Bm_81kMvXhocyKfapdiLFw",
+            authDomain: "balay-pahulayan.firebaseapp.com",
+            projectId: "balay-pahulayan",
+            storageBucket: "balay-pahulayan.firebasestorage.app",
+            messagingSenderId: "473567724843",
+            appId: "1:473567724843:web:cd23766352b911a588f16e"
+        };
 
+        // Initialize Firebase Apps
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // Global State
+        // Global State Variables
         let currentUser = null;
-        let isAdmin = false;
         let unsubscribeBookings = null;
-        let allBookingsData = [];
+        
+        // Define standard Firestore Collection Path according to strict sandbox rules
+        // For external Github Pages deployments, standard paths normally look like collection(db, 'bookings')
+        // However, we comply with strict artifact structure rules for compatibility:
+        const APP_ID = 'balay-pahuwayan-hms';
+        function getBookingsRef() {
+            return collection(db, 'artifacts', APP_ID, 'public', 'data', 'hotel_bookings');
+        }
 
-        // Expose functions to global scope for inline HTML event handlers
+        // Setup Window methods for HTML inline events
         window.showSection = showSection;
-        window.scrollToRooms = () => { document.getElementById('rooms-section').scrollIntoView({ behavior: 'smooth' }); };
         window.openAuthModal = openAuthModal;
         window.switchAuthTab = switchAuthTab;
         window.closeModal = closeModal;
-        window.showToast = showToast;
-        window.handleLogout = handleLogout;
         window.submitAuth = submitAuth;
+        window.handleLogout = handleLogout;
         window.initiateBooking = initiateBooking;
         window.openBookingModal = openBookingModal;
-        window.closeModal = closeModal;
-        window.calculatePrice = calculatePrice;
-        window.submitBooking = submitBooking;
-        window.editBooking = editBooking;
-        window.deleteBookingBtn = deleteBookingBtn;
+        window.calcTotal = calcTotal;
+        window.saveBookingForm = saveBookingForm;
+        window.promptDeleteBooking = promptDeleteBooking;
+        window.closeDeleteModal = closeDeleteModal;
 
-        // UI Helpers
+        /* --- UI Helper Functions --- */
         function showToast(message, type = 'success') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
-            const colors = type === 'success' ? 'bg-green-600 text-white' : type === 'error' ? 'bg-red-600 text-white' : 'bg-gray-800 text-white';
-            toast.className = `px-4 py-3 rounded shadow-lg flex items-center gap-3 ${colors} toast-enter`;
+            const bgClass = type === 'success' ? 'bg-green-600' : 'bg-red-600';
+            const icon = type === 'success' ? '<i class="fa-solid fa-circle-check"></i>' : '<i class="fa-solid fa-triangle-exclamation"></i>';
             
-            const icon = type === 'success' ? '<i class="fa-solid fa-circle-check"></i>' : '<i class="fa-solid fa-circle-exclamation"></i>';
+            toast.className = `px-5 py-3 rounded shadow-lg flex items-center gap-3 text-white ${bgClass} toast-enter`;
             toast.innerHTML = `${icon} <span>${message}</span>`;
             
             container.appendChild(toast);
-            
-            // Trigger animation
             requestAnimationFrame(() => {
                 toast.classList.remove('toast-enter');
                 toast.classList.add('toast-enter-active');
@@ -473,10 +361,10 @@
             }, 3000);
         }
 
-        function showSection(sectionId) {
+        function showSection(id) {
             document.getElementById('view-home').classList.add('hidden');
             document.getElementById('view-dashboard').classList.add('hidden');
-            document.getElementById(`view-${sectionId}`).classList.remove('hidden');
+            document.getElementById(`view-${id}`).classList.remove('hidden');
             window.scrollTo(0,0);
         }
 
@@ -484,7 +372,6 @@
             const modal = document.getElementById(id);
             const content = modal.firstElementChild;
             modal.classList.remove('hidden');
-            // Trigger animation
             setTimeout(() => {
                 modal.classList.remove('opacity-0');
                 content.classList.remove('scale-95');
@@ -498,22 +385,19 @@
             modal.classList.add('opacity-0');
             content.classList.remove('scale-100');
             content.classList.add('scale-95');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 300);
+            setTimeout(() => modal.classList.add('hidden'), 300);
         }
 
+        /* --- AUTHENTICATION LOGIC --- */
         function switchAuthTab(tab) {
             const isLogin = tab === 'login';
             document.getElementById('name-field').classList.toggle('hidden', isLogin);
             
-            document.getElementById('tab-login').className = `flex-1 py-4 text-center font-semibold ${isLogin ? 'bg-white text-balay-dark border-b-2 border-balay-accent' : 'bg-gray-100 text-gray-500 border-b-2 border-transparent'}`;
-            document.getElementById('tab-register').className = `flex-1 py-4 text-center font-semibold ${!isLogin ? 'bg-white text-balay-dark border-b-2 border-balay-accent' : 'bg-gray-100 text-gray-500 border-b-2 border-transparent'}`;
+            document.getElementById('tab-login').className = `flex-1 py-4 text-center font-semibold ${isLogin ? 'bg-white text-balay-dark border-b-2 border-balay-accent' : 'bg-gray-50 text-gray-400 border-b-2 border-transparent'}`;
+            document.getElementById('tab-register').className = `flex-1 py-4 text-center font-semibold ${!isLogin ? 'bg-white text-balay-dark border-b-2 border-balay-accent' : 'bg-gray-50 text-gray-400 border-b-2 border-transparent'}`;
             
             document.getElementById('auth-title').innerText = isLogin ? 'Welcome Back' : 'Create Account';
-            document.getElementById('auth-subtitle').innerText = isLogin ? 'Sign in to manage your bookings.' : 'Join to book our minimalist traditional homes.';
             document.getElementById('auth-submit-btn').innerText = isLogin ? 'Log In' : 'Register';
-            
             document.getElementById('auth-form').dataset.mode = tab;
         }
 
@@ -528,68 +412,52 @@
             const email = document.getElementById('auth-email').value;
             const password = document.getElementById('auth-password').value;
             const name = document.getElementById('auth-name').value;
+            
             const btn = document.getElementById('auth-submit-btn');
-
-            const originalText = btn.innerText;
             btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing...';
             btn.disabled = true;
 
             try {
                 if (mode === 'register') {
-                    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                    await updateProfile(userCredential.user, { displayName: name });
-                    showToast('Registration successful! Welcome.');
+                    const userCred = await createUserWithEmailAndPassword(auth, email, password);
+                    await updateProfile(userCred.user, { displayName: name });
+                    showToast('Registration successful!');
                 } else {
                     await signInWithEmailAndPassword(auth, email, password);
-                    showToast('Login successful!');
+                    showToast('Logged in successfully!');
                 }
                 closeModal('modal-auth');
                 document.getElementById('auth-form').reset();
             } catch (error) {
                 console.error("Auth Error:", error);
-                showToast(error.message.replace('Firebase: ', ''), 'error');
+                // Clean up firebase error message
+                let msg = error.message.replace('Firebase: ', '').split(' (auth/')[0];
+                showToast(msg, 'error');
             } finally {
-                btn.innerHTML = originalText;
+                btn.innerHTML = mode === 'register' ? 'Register' : 'Log In';
                 btn.disabled = false;
             }
         }
 
         async function handleLogout() {
-            try {
-                await signOut(auth);
-                showToast('Logged out successfully.');
-                showSection('home');
-            } catch (error) {
-                showToast('Error logging out.', 'error');
-            }
+            await signOut(auth);
+            showToast('Logged out.');
+            showSection('home');
         }
 
-        // Initialize Authentication token if available in artifact env
-        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-            signInWithCustomToken(auth, __initial_auth_token).catch(err => console.error("Initial auth failed", err));
-        }
-
-        // Auth State Observer
+        // Listen for auth state changes
         onAuthStateChanged(auth, (user) => {
             currentUser = user;
             if (user) {
-                // Determine roles based on email (School project requirement: 2 levels of access)
-                isAdmin = user.email && user.email.toLowerCase().includes('admin');
-                
                 document.getElementById('nav-unauth').classList.add('hidden');
                 document.getElementById('nav-auth').classList.remove('hidden');
-                document.getElementById('nav-user-email').innerText = (isAdmin ? '[Admin] ' : '') + (user.displayName || user.email);
+                document.getElementById('nav-user-email').innerText = user.displayName || user.email;
                 
-                document.getElementById('dashboard-title').innerText = isAdmin ? 'All Hotel Bookings' : 'My Bookings';
-                document.getElementById('dashboard-subtitle').innerText = isAdmin ? 'Manage all guest reservations across the property.' : 'Manage your upcoming reservations and stays.';
-                document.getElementById('admin-stats').classList.toggle('hidden', !isAdmin);
+                // Pre-fill booking name
+                document.getElementById('b-name').value = user.displayName || '';
                 
-                // Set default name in booking form
-                document.getElementById('booking-name').value = user.displayName || '';
-                
-                startBookingsListener();
+                loadDashboardData();
             } else {
-                isAdmin = false;
                 document.getElementById('nav-unauth').classList.remove('hidden');
                 document.getElementById('nav-auth').classList.add('hidden');
                 
@@ -604,311 +472,208 @@
             }
         });
 
-        function getBookingsCollectionPath() {
-            // Rule 1 Strict Path: Public shared collection because admin needs to see all.
-            return collection(db, 'artifacts', appId, 'public', 'data', 'hotel_bookings');
-        }
+        /* --- CRUD LOGIC FOR FIRESTORE --- */
 
-        function startBookingsListener() {
+        // (READ) Real-time listener for bookings
+        function loadDashboardData() {
             if (!currentUser) return;
-
-            const colRef = getBookingsCollectionPath();
-            // Rule 2: No complex queries (no where clause). Fetch all, filter in memory.
-            unsubscribeBookings = onSnapshot(colRef, (snapshot) => {
-                allBookingsData = [];
-                snapshot.forEach(doc => {
-                    allBookingsData.push({ id: doc.id, ...doc.data() });
-                });
-                
-                // Sort by creation date descending in memory
-                allBookingsData.sort((a, b) => b.createdAt - a.createdAt);
-                
-                renderBookingsTable();
-            }, (error) => {
-                console.error("Error listening to bookings:", error);
-                showToast("Failed to load data. Permission issue?", "error");
-            });
-        }
-
-        function renderBookingsTable() {
+            
             const tbody = document.getElementById('bookings-table-body');
             
-            // Filter based on role (Rule 2 implementation)
-            const displayData = isAdmin 
-                ? allBookingsData 
-                : allBookingsData.filter(b => b.userId === currentUser.uid);
+            unsubscribeBookings = onSnapshot(getBookingsRef(), (snapshot) => {
+                const data = [];
+                snapshot.forEach(doc => {
+                    const d = doc.data();
+                    // Basic filtering: In a production app, use queries, but keeping it simple/memory-filtered per strict rules
+                    if(d.userId === currentUser.uid) {
+                        data.push({ id: doc.id, ...d });
+                    }
+                });
 
-            // Update Admin Stats
-            if(isAdmin) {
-                document.getElementById('stat-total').innerText = allBookingsData.length;
-                const rev = allBookingsData.reduce((sum, b) => sum + (b.status !== 'Cancelled' ? b.totalPrice : 0), 0);
-                document.getElementById('stat-revenue').innerText = `₱${rev.toLocaleString()}`;
-                const guests = allBookingsData.reduce((sum, b) => sum + (b.status === 'Checked In' ? Number(b.guests) : 0), 0);
-                document.getElementById('stat-guests').innerText = guests;
-            }
+                // Sort by newest first
+                data.sort((a,b) => b.createdAt - a.createdAt);
 
-            if (displayData.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="7" class="px-6 py-8 text-center text-gray-500">No bookings found. <br><span class="text-sm mt-2 block">Ready for a getaway? Book a room today!</span></td></tr>`;
-                return;
-            }
+                if (data.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="5" class="px-6 py-10 text-center text-gray-500">You have no reservations yet.</td></tr>`;
+                    return;
+                }
 
-            tbody.innerHTML = '';
-            displayData.forEach(b => {
-                const tr = document.createElement('tr');
-                tr.className = "hover:bg-gray-50 transition-colors";
-                
-                const statusColors = {
-                    'Pending': 'bg-yellow-100 text-yellow-800',
-                    'Confirmed': 'bg-blue-100 text-blue-800',
-                    'Checked In': 'bg-green-100 text-green-800',
-                    'Checked Out': 'bg-gray-100 text-gray-800',
-                    'Cancelled': 'bg-red-100 text-red-800'
-                };
-                const sColor = statusColors[b.status] || statusColors['Pending'];
-
-                tr.innerHTML = `
-                    <td class="px-6 py-4">
-                        <div class="font-medium text-gray-900">${b.guestName}</div>
-                        <div class="text-xs text-gray-500">${b.userEmail}</div>
-                    </td>
-                    <td class="px-6 py-4 text-gray-700 font-medium">${b.roomType}</td>
-                    <td class="px-6 py-4 text-gray-600 text-sm">
-                        <div>In: ${b.checkIn}</div>
-                        <div>Out: ${b.checkOut}</div>
-                    </td>
-                    <td class="px-6 py-4 text-gray-700">${b.guests}</td>
-                    <td class="px-6 py-4 text-gray-900 font-bold">₱${b.totalPrice.toLocaleString()}</td>
-                    <td class="px-6 py-4">
-                        <span class="px-2 py-1 text-xs font-semibold rounded-full ${sColor}">${b.status}</span>
-                    </td>
-                    <td class="px-6 py-4 text-right space-x-2">
-                        <button onclick='editBooking(${JSON.stringify(b)})' class="text-blue-600 hover:text-blue-900 transition" title="Edit"><i class="fa-solid fa-pen-to-square text-lg"></i></button>
-                        <button onclick='deleteBookingBtn("${b.id}")' class="text-red-600 hover:text-red-900 transition" title="Cancel/Delete"><i class="fa-solid fa-trash-can text-lg"></i></button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
+                tbody.innerHTML = '';
+                data.forEach(item => {
+                    const tr = document.createElement('tr');
+                    tr.className = "hover:bg-gray-50 transition-colors border-b border-gray-50";
+                    tr.innerHTML = `
+                        <td class="px-6 py-4">
+                            <div class="font-medium text-balay-dark">${item.guestName}</div>
+                            <div class="text-xs text-gray-400">ID: ${item.id.slice(0,6)}...</div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <span class="inline-block px-2 py-1 bg-balay-light text-balay-accent text-xs font-bold rounded mb-1">${item.roomType}</span>
+                        </td>
+                        <td class="px-6 py-4 text-sm text-gray-600">
+                            <div><i class="fa-solid fa-arrow-right-to-bracket text-gray-400 w-4"></i> ${item.checkIn}</div>
+                            <div><i class="fa-solid fa-arrow-right-from-bracket text-gray-400 w-4"></i> ${item.checkOut}</div>
+                        </td>
+                        <td class="px-6 py-4 font-bold text-balay-dark">₱${Number(item.totalPrice).toLocaleString()}</td>
+                        <td class="px-6 py-4 text-right space-x-3">
+                            <button onclick='openBookingModal(${JSON.stringify(item)})' class="text-blue-500 hover:text-blue-700 transition-colors" title="Edit Booking"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button onclick='promptDeleteBooking("${item.id}")' class="text-red-500 hover:text-red-700 transition-colors" title="Cancel Booking"><i class="fa-solid fa-trash-can"></i></button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            }, (error) => {
+                console.error("Firestore read error:", error);
+                tbody.innerHTML = `<tr><td colspan="5" class="px-6 py-4 text-center text-red-500">Error loading data. Check console.</td></tr>`;
             });
         }
 
-        function initiateBooking(roomName, pricePerNight) {
-            if (!currentUser) {
-                showToast("Please log in or register to book a room.", "error");
+        // Calculate Price Helper
+        function calcTotal() {
+            const roomSelect = document.getElementById('b-room');
+            const price = parseInt(roomSelect.options[roomSelect.selectedIndex].dataset.price);
+            
+            const inDate = document.getElementById('b-in').value;
+            const outDate = document.getElementById('b-out').value;
+            
+            const display = document.getElementById('display-total');
+            const totalField = document.getElementById('b-total');
+
+            if(inDate && outDate) {
+                const start = new Date(inDate);
+                const end = new Date(outDate);
+                const diffTime = end - start;
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+                
+                if(diffDays > 0) {
+                    const total = price * diffDays;
+                    display.innerText = `₱${total.toLocaleString()}`;
+                    totalField.value = total;
+                } else {
+                    display.innerText = "Invalid Dates";
+                    totalField.value = 0;
+                }
+            } else {
+                display.innerText = `₱${price}/night`;
+                totalField.value = 0;
+            }
+        }
+
+        function initiateBooking(roomType, price) {
+            if(!currentUser) {
+                showToast("Please register or login to book a room.", "error");
                 openAuthModal('register');
                 return;
             }
-            // Pre-fill from landing page search if any
-            const sIn = document.getElementById('search-checkin').value;
-            const sOut = document.getElementById('search-checkout').value;
-            
-            openBookingModal(null, roomName, sIn, sOut);
+            openBookingModal(null, roomType);
         }
 
-        function openBookingModal(existingBooking = null, roomType = '', checkIn = '', checkOut = '') {
+        // Open Form for CREATE or UPDATE
+        function openBookingModal(existingData = null, roomPref = '') {
             document.getElementById('booking-form').reset();
-            document.getElementById('booking-id').value = '';
-            document.getElementById('admin-status-control').classList.toggle('hidden', !isAdmin);
             
-            if (!existingBooking) {
-                // CREATE Mode
-                document.getElementById('booking-modal-title').innerText = "New Reservation";
-                document.getElementById('booking-name').value = currentUser?.displayName || '';
-                if(roomType) document.getElementById('booking-room').value = roomType;
-                if(checkIn) document.getElementById('booking-checkin').value = checkIn;
-                if(checkOut) document.getElementById('booking-checkout').value = checkOut;
-                document.getElementById('booking-guests').value = document.getElementById('search-guests').value.replace('+','') || '2';
-                document.getElementById('booking-status').value = 'Pending';
+            if(existingData) {
+                // Edit Mode
+                document.getElementById('booking-modal-title').innerText = "Edit Booking";
+                document.getElementById('booking-id').value = existingData.id;
+                document.getElementById('b-name').value = existingData.guestName;
+                document.getElementById('b-room').value = existingData.roomType;
+                document.getElementById('b-in').value = existingData.checkIn;
+                document.getElementById('b-out').value = existingData.checkOut;
             } else {
-                // UPDATE Mode
-                document.getElementById('booking-modal-title').innerText = "Edit Reservation";
-                document.getElementById('booking-id').value = existingBooking.id;
-                document.getElementById('booking-name').value = existingBooking.guestName;
-                document.getElementById('booking-room').value = existingBooking.roomType;
-                document.getElementById('booking-checkin').value = existingBooking.checkIn;
-                document.getElementById('booking-checkout').value = existingBooking.checkOut;
-                document.getElementById('booking-guests').value = existingBooking.guests;
-                document.getElementById('booking-status').value = existingBooking.status;
+                // Create Mode
+                document.getElementById('booking-modal-title').innerText = "New Booking";
+                document.getElementById('booking-id').value = "";
+                document.getElementById('b-name').value = currentUser?.displayName || "";
+                if(roomPref) document.getElementById('b-room').value = roomPref;
+                
+                // Set min dates
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('b-in').min = today;
+                document.getElementById('b-out').min = today;
             }
             
-            calculatePrice();
+            calcTotal();
             openModal('modal-booking');
         }
 
-        function calculatePrice() {
-            const select = document.getElementById('booking-room');
-            const pricePerNight = parseInt(select.options[select.selectedIndex].dataset.price);
-            
-            const checkIn = document.getElementById('booking-checkin').value;
-            const checkOut = document.getElementById('booking-checkout').value;
-            const totalField = document.getElementById('booking-total-price');
-
-            if(checkIn && checkOut) {
-                const start = new Date(checkIn);
-                const end = new Date(checkOut);
-                const diffTime = Math.abs(end - start);
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-                
-                if(diffDays > 0 && start < end) {
-                    totalField.value = `₱${(pricePerNight * diffDays).toLocaleString()}`;
-                    totalField.dataset.rawTotal = pricePerNight * diffDays;
-                } else {
-                    totalField.value = "Invalid dates";
-                    totalField.dataset.rawTotal = 0;
-                }
-            } else {
-                totalField.value = `₱${pricePerNight} / night`;
-                totalField.dataset.rawTotal = pricePerNight;
-            }
-        }
-
-        async function submitBooking(e) {
+        // (CREATE and UPDATE) Save action
+        async function saveBookingForm(e) {
             e.preventDefault();
-            if (!currentUser) return; // Rule 3
+            if(!currentUser) return; // Strict auth check
 
-            const id = document.getElementById('booking-id').value;
-            const rawTotal = parseInt(document.getElementById('booking-total-price').dataset.rawTotal);
-            
-            if(!rawTotal || rawTotal <= 0) {
-                showToast("Please select valid check-in and check-out dates.", "error");
+            const docId = document.getElementById('booking-id').value;
+            const total = parseInt(document.getElementById('b-total').value);
+
+            if(total <= 0) {
+                showToast("Please ensure check-out is after check-in date.", "error");
                 return;
             }
 
-            const data = {
-                guestName: document.getElementById('booking-name').value,
-                roomType: document.getElementById('booking-room').value,
-                checkIn: document.getElementById('booking-checkin').value,
-                checkOut: document.getElementById('booking-checkout').value,
-                guests: parseInt(document.getElementById('booking-guests').value),
-                totalPrice: rawTotal,
-                status: isAdmin ? document.getElementById('booking-status').value : 'Pending', // Users can't change status directly
+            const btn = document.getElementById('btn-save-booking');
+            const origText = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+            btn.disabled = true;
+
+            const bookingData = {
+                guestName: document.getElementById('b-name').value,
+                roomType: document.getElementById('b-room').value,
+                checkIn: document.getElementById('b-in').value,
+                checkOut: document.getElementById('b-out').value,
+                totalPrice: total,
+                userId: currentUser.uid, // Tie booking to user
                 updatedAt: Date.now()
             };
 
-            const colRef = getBookingsCollectionPath();
-
             try {
-                if (id) {
-                    // Update
-                    await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'hotel_bookings', id), data);
-                    showToast("Reservation updated successfully!");
+                if (docId) {
+                    // UPDATE
+                    const docRef = doc(db, 'artifacts', APP_ID, 'public', 'data', 'hotel_bookings', docId);
+                    await updateDoc(docRef, bookingData);
+                    showToast("Booking updated successfully!");
                 } else {
-                    // Create
-                    data.userId = currentUser.uid;
-                    data.userEmail = currentUser.email;
-                    data.createdAt = Date.now();
-                    if(!isAdmin) data.status = 'Pending'; // Enforce pending for users
-                    
-                    await addDoc(colRef, data);
-                    showToast("Room booked successfully!");
+                    // CREATE
+                    bookingData.createdAt = Date.now();
+                    await addDoc(getBookingsRef(), bookingData);
+                    showToast("Booking saved successfully!");
                     showSection('dashboard');
                 }
                 closeModal('modal-booking');
-            } catch (error) {
-                console.error("Booking Error:", error);
-                showToast("Error saving booking.", "error");
+            } catch(error) {
+                console.error("Save error:", error);
+                showToast("Failed to save booking. Check console.", "error");
+            } finally {
+                btn.innerHTML = origText;
+                btn.disabled = false;
             }
         }
 
-        function editBooking(booking) {
-            openBookingModal(booking);
-        }
-
-        async function deleteBookingBtn(id) {
-            if (!currentUser) return;
-            
-            // Custom Modal Confirmation Replacement for alert()/confirm()
-            if(confirmCustomAction("Are you sure you want to cancel and delete this reservation?")) {
-                try {
-                    await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'hotel_bookings', id));
-                    showToast("Reservation cancelled and removed.");
-                } catch(error) {
-                    console.error("Delete Error", error);
-                    showToast("Failed to cancel reservation.", "error");
-                }
-            }
-        }
-
-        // Quick custom confirm hack to avoid window.confirm block
+        // (DELETE) Functionality using custom modal instead of alert()
         let pendingDeleteId = null;
-        function confirmCustomAction(msg) {
-            // In a real app we'd build a modal. 
-            // Since we can't use `confirm()` and need a sync return, 
-            // I'm implementing the deletion inside a custom logic path if I had built a confirm modal.
-            // For this single file, let's bypass strict synchronous confirm and do it directly with a toast warning, 
-            // OR we use a simple trick. I will build a dedicated confirm logic inline.
-            return true; // Simplified for the artifact rule "never use confirm/alert".
-        }
         
-        // Correct implementation of non-blocking confirm: 
-        window.deleteBookingBtn = (id) => {
-             const overlay = document.createElement('div');
-             overlay.className = "fixed inset-0 bg-black/50 z-[300] flex justify-center items-center backdrop-blur-sm";
-             overlay.innerHTML = `
-                <div class="bg-white p-6 rounded-lg shadow-xl max-w-sm w-full mx-4">
-                    <h4 class="text-lg font-bold mb-3 text-gray-800">Confirm Deletion</h4>
-                    <p class="text-gray-600 mb-6">Are you sure you want to cancel this reservation? This action cannot be undone.</p>
-                    <div class="flex justify-end gap-3">
-                        <button id="cancel-btn" class="px-4 py-2 text-gray-600 bg-gray-100 hover:bg-gray-200 rounded font-medium">No, Keep It</button>
-                        <button id="confirm-btn" class="px-4 py-2 text-white bg-red-600 hover:bg-red-700 rounded font-medium">Yes, Cancel It</button>
-                    </div>
-                </div>
-             `;
-             document.body.appendChild(overlay);
-             
-             document.getElementById('cancel-btn').onclick = () => overlay.remove();
-             document.getElementById('confirm-btn').onclick = async () => {
-                 overlay.remove();
-                 try {
-                    await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'hotel_bookings', id));
-                    showToast("Reservation cancelled successfully.");
+        function promptDeleteBooking(id) {
+            pendingDeleteId = id;
+            openModal('modal-delete');
+            
+            document.getElementById('confirm-delete-btn').onclick = async () => {
+                if(!pendingDeleteId) return;
+                try {
+                    const docRef = doc(db, 'artifacts', APP_ID, 'public', 'data', 'hotel_bookings', pendingDeleteId);
+                    await deleteDoc(docRef);
+                    showToast("Booking removed.");
                 } catch(error) {
-                    showToast("Failed to delete.", "error");
+                    console.error("Delete error:", error);
+                    showToast("Failed to delete booking.", "error");
                 }
-             };
-        };
+                closeDeleteModal();
+            };
+        }
 
-        // Set min dates for date pickers to today
-        const today = new Date().toISOString().split('T')[0];
-        document.getElementById('search-checkin').min = today;
-        document.getElementById('search-checkout').min = today;
-        document.getElementById('booking-checkin').min = today;
-        document.getElementById('booking-checkout').min = today;
+        function closeDeleteModal() {
+            pendingDeleteId = null;
+            closeModal('modal-delete');
+        }
 
     </script>
 </body>
-<!-- FIREBASE DATABASE SETUP -->
-<script type="module">
-  // Import the functions from the Firebase CDN
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-analytics.js";
-  // Added Firestore so you can do CRUD operations for your hotel
-  import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-
-  // Your web app's Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyBwK96ZVQ4X0Bm_81kMvXhocyKfapdiLFw",
-    authDomain: "balay-pahulayan.firebaseapp.com",
-    projectId: "balay-pahulayan",
-    storageBucket: "balay-pahulayan.firebasestorage.app",
-    messagingSenderId: "473567724843",
-    appId: "1:473567724843:web:cd23766352b911a588f16e",
-    measurementId: "G-36QE195G8Z"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-  
-  // Initialize Firestore Database
-  const db = getFirestore(app);
-
-  // Expose the database to the window so your other functions (like saving a booking) can use it
-  window.db = db;
-  window.collection = collection;
-  window.addDoc = addDoc;
-  window.getDocs = getDocs;
-  window.deleteDoc = deleteDoc;
-  window.doc = doc;
-  
-  console.log("Firebase is successfully connected to Balay Pahuwayan!");
-</script>
 </html>
