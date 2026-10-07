@@ -484,10 +484,8 @@
                 const data = [];
                 snapshot.forEach(doc => {
                     const d = doc.data();
-                    // Basic filtering: In a production app, use queries, but keeping it simple/memory-filtered per strict rules
-                    if(d.userId === currentUser.uid) {
-                        data.push({ id: doc.id, ...d });
-                    }
+                    // Admin View: Push all data to the table regardless of who created it
+                    data.push({ id: doc.id, ...d });
                 });
 
                 // Sort by newest first
