@@ -875,4 +875,40 @@
 
     </script>
 </body>
+<!-- FIREBASE DATABASE SETUP -->
+<script type="module">
+  // Import the functions from the Firebase CDN
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-analytics.js";
+  // Added Firestore so you can do CRUD operations for your hotel
+  import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyBwK96ZVQ4X0Bm_81kMvXhocyKfapdiLFw",
+    authDomain: "balay-pahulayan.firebaseapp.com",
+    projectId: "balay-pahulayan",
+    storageBucket: "balay-pahulayan.firebasestorage.app",
+    messagingSenderId: "473567724843",
+    appId: "1:473567724843:web:cd23766352b911a588f16e",
+    measurementId: "G-36QE195G8Z"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  
+  // Initialize Firestore Database
+  const db = getFirestore(app);
+
+  // Expose the database to the window so your other functions (like saving a booking) can use it
+  window.db = db;
+  window.collection = collection;
+  window.addDoc = addDoc;
+  window.getDocs = getDocs;
+  window.deleteDoc = deleteDoc;
+  window.doc = doc;
+  
+  console.log("Firebase is successfully connected to Balay Pahuwayan!");
+</script>
 </html>
