@@ -1,0 +1,44 @@
+# Balay Pahuwayan - Hotel Management System
+
+## Project Overview
+**Balay Pahuwayan** is a web-based Hotel Management System inspired by traditional Filipino architecture (such as the *Bahay Kubo*). It blends minimalist aesthetics with robust database operations to provide a seamless digital booking experience for guests and comprehensive control for administrators.
+
+---
+
+## Key Features
+* **Role-Based Portals**: 
+  * **User Portal**: Allows guests to browse accommodations, securely register/login, submit personal reservations, and view digital confirmation receipts.
+  * **Admin Management Portal**: Restricted exclusively to administrators, offering full system-wide oversight with permissions to **Edit** and **Delete** any reservation in the database.
+* **Smart Capacity Management**: 
+  * Enforces a strict maximum limit of **5 slots per room type** for any given date range. The system automatically checks date overlaps and blocks overbookings if a room is fully booked.
+* **Full CRUD Functionality**: 
+  * **Create**: Real-time insertion of new bookings with automatic pricing calculation based on nightly rates and stay duration.
+  * **Read**: Live data synchronization via Firebase Firestore displaying accurate reservation records.
+  * **Update & Delete**: Administrative controls to modify guest details or remove canceled bookings.
+* **Digital Billing & Printable Receipts**: 
+  * Instantly generates an official transaction receipt upon booking creation, complete with a dedicated print layout for physical or PDF exports.
+
+---
+
+## Tech Stack
+* **Frontend**: HTML5, Tailwind CSS, JavaScript (ES6 Modules)
+* **Styling & Icons**: FontAwesome, Google Fonts (*Playfair Display* & *Inter*)
+* **Backend & Database**: Firebase Authentication & Cloud Firestore
+* **Deployment**: GitHub Pages
+
+---
+
+## Admin Portal Access Credentials
+To evaluate and test the administrative management dashboard features, use the following credentials:
+
+* **Email**: `admin@balaypahuwayan.com`
+* **Password**: `admin123`
+
+*(Note: Ensure you create this account via the registration modal or directly inside your Firebase Console Authentication tab prior to logging in).*
+
+---
+
+## Installation & Setup
+1. Clone or download the repository.
+2. Open `index.html` in your web browser or deploy it via GitHub Pages.
+3. Ensure your Firebase project has **Authentication (Email/Password)** enabled and **Cloud Firestore Database** created in **Test Mode** (`allow read, write: if true;`).
